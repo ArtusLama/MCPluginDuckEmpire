@@ -1,0 +1,10 @@
+name: Smasch
+version: '${project.version}'
+main: de.artus.smasch.Smasch
+api-version: 1.18
+authors: [ _Artus_ ]
+commands:
+  tpsmash:
+    description: tps u to the smash world
+  smash:
+    description: Smash Command (for admins only)
