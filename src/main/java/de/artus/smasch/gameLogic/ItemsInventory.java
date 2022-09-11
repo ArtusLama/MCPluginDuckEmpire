@@ -29,6 +29,12 @@ public class ItemsInventory {
 
         ITEMS.add(new GameItem(Material.MOJANG_BANNER_PATTERN, ChatColor.AQUA + "Map reset", System.currentTimeMillis())
                 .setSimpleItem("mapReset"));
+
+
+        ITEMS.add(new GameItem(Material.TNT, ChatColor.RED + "Boom...", System.currentTimeMillis())
+                .setBomb(5, 15, 6).setSpecialId("atombomb"));
+
+
     }
 
     public static void openItemsInventory(Player player){

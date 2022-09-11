@@ -29,6 +29,10 @@ public class GameItem implements Listener {
     private Item onGroundItem;
 
 
+    private String specialId;
+
+
+
     private boolean isSimpleItem;
     private String simpleName;
 
@@ -51,6 +55,7 @@ public class GameItem implements Listener {
 
     public GameItem(Material mat, String name, long ID) {
         this.id = ID;
+        specialId = "";
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(this, Smasch.getPlugin(Smasch.class));
 
@@ -64,6 +69,12 @@ public class GameItem implements Listener {
         this.item.setItemMeta(itemMeta);
     }
 
+
+    public GameItem setSpecialId(String name){
+        specialId = name;
+        return this;
+    }
+
     public ItemStack getItem() {
         return this.item;
     }
@@ -73,6 +84,7 @@ public class GameItem implements Listener {
         if (isBow) gameItem.setBow(BOWType);
         if (isBomb) gameItem.setBomb(BOMBknockBack, BOMBradius, BOMBDelay);
         if (isSimpleItem) gameItem.setSimpleItem(simpleName);
+        gameItem.setSpecialId(specialId);
         return gameItem;
     }
 
@@ -308,6 +320,11 @@ public class GameItem implements Listener {
 
                 timer--;
 
+                if (specialId.equals("atombomb")){
+                    if (timer <= 1) Bukkit.getWorld(Smasch.gameWorld).playSound(groundItem.getLocation(), Sound.ENTITY_ILLUSIONER_PREPARE_BLINDNESS, 2, 1);
+                    else Bukkit.getWorld(Smasch.gameWorld).playSound(groundItem.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 2);
+                }
+
                 if (groundItem.isOnGround() && explodeOnGround) {
                     explodeBomb();
                     cancel();
@@ -316,6 +333,8 @@ public class GameItem implements Listener {
                     cancel();
                 }
                 if (timer <= 0 && !explodeOnGround) {
+                    if (specialId.equals("atombomb")) Bukkit.getWorld(Smasch.gameWorld).playSound(groundItem.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_IMPACT, 2, 0.75f);
+
                     explodeBomb();
                     cancel();
                 }
