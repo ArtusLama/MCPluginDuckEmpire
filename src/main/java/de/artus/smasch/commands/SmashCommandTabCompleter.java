@@ -22,6 +22,7 @@ public class SmashCommandTabCompleter implements TabCompleter {
 
         List<String> completions = new ArrayList<>();
         List<String> commands = new ArrayList<>();
+
         if (args.length == 1){
             commands.add("help");
             commands.add("game");
